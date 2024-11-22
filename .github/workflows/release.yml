@@ -7,52 +7,30 @@ on:
 
 jobs:
   build:
-    name: Build and Release Electron App
+    name: Build and Release EverySearch
     runs-on: ubuntu-latest
 
     steps:
-    # Step 1: 检出代码
     - name: Checkout code
       uses: actions/checkout@v3
 
-    # Step 2: 设置 Node.js 环境
     - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
         node-version: '20'
         cache: 'npm'
 
-    # Step 3: 安装依赖
     - name: Install dependencies
       run: npm ci
 
-    # Step 4: 打包 Electron 应用
     - name: Build the application
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: npm run build
 
-    # Step 5: 创建 Release 并上传产物
-    - name: Create GitHub Release
-      id: create_release
-      uses: actions/create-release@v1
+    - name: Create Release
+      uses: softprops/action-gh-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: v${{ github.run_number }}
-        release_name: Release v${{ github.run_number }}
-        body: |
-          AutoBuild
-        draft: false
-        prerelease: false
-
-    # Step 6: 上传 Release Asset
-    - name: Upload Release Asset
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./dist/EverySearch-1.0.1-win.zip
-        asset_name: EverySearch-win.zip
-        asset_content_type: application/octet-stream
+        files: ./dist/EverySearch-win.zip
