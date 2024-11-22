@@ -28,9 +28,14 @@ jobs:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: npm run build
 
+    - name: Create Git Tag
+      run: |
+        git tag -a v${{ github.run_number }} -m "Release v${{ github.run_number }}"
+        git push origin v${{ github.run_number }}
+
     - name: Create Release
       uses: softprops/action-gh-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        files: ./dist/EverySearch-win.zip
+        files: ./dist/EverySearch-1.0.1-win.zip
