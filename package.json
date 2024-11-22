@@ -1,0 +1,50 @@
+{
+  "name": "everysearch",
+  "version": "1.0.1",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --dev",
+    "build": "electron-builder"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "electron": "^33.2.0",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "com.aszer0s.everysearch",
+    "productName": "EverySearch",
+    "files": [
+      "main.js",
+      "renderer.js",
+      "index.html",
+      "assets/**/*",
+      "node_modules/**/*"
+    ],
+    "extraResources": [
+      {
+        "from": "assets/es.exe",
+        "to": "assets/es.exe"
+      }
+    ],
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ]
+    }
+  },
+  "dependencies": {
+    "iconv-lite": "^0.6.3",
+    "node-gyp": "^10.2.0",
+    "pinyin": "^4.0.0-alpha.2",
+    "ref-napi": "^3.0.3"
+  }
+}
