@@ -12,10 +12,10 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Setup Node.js
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: '20'
         cache: 'npm'
@@ -28,20 +28,9 @@ jobs:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: npm run build
 
-    - name: Configure Git Identity
-      run: |
-        git config --global user.name "GitHub Actions"
-        git config --global user.email "actions@github.com"
-
-    - name: Create and Push Git Tag
-      run: |
-        TAG_NAME=v${{ github.run_number }}
-        git tag -a $TAG_NAME -m "Release $TAG_NAME"
-        git push origin $TAG_NAME
-
-    - name: Create Release
-      uses: softprops/action-gh-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Upload Release Asset to GitHub
+      uses: ncipollo/release-action@v1
       with:
-        files: ./dist/EverySearch-1.0.1-win.zip
+        artifacts: dist/EverySearch-win.zip
+        tag: AutoBuild
+        token: ${{ secrets.GITHUB_TOKEN }}
