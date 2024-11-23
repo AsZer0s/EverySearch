@@ -16,6 +16,8 @@ Search engine using [Everything](https://www.voidtools.com/)
 
 ## Screenshot
 
+MainWindows
 ![MainWindows](./Files/MainWindows.png)
 
+SearchWindows
 ![SearchWindows](./Files/SearchWindows.png)
