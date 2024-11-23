@@ -28,6 +28,12 @@ jobs:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: npm run build
 
+    - name: List dist directory
+      run: ls -al dist
+  
+    - name: Output build logs
+      run: cat build.log
+
     - name: Upload Release Asset to GitHub
       uses: ncipollo/release-action@v1
       with:
