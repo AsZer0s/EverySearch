@@ -5,7 +5,7 @@
   "scripts": {
     "start": "electron .",
     "dev": "electron . --dev",
-    "build": "electron-builder --win"
+    "build": "electron-builder"
   },
   "keywords": [],
   "author": "",

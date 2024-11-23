@@ -8,7 +8,7 @@ on:
 jobs:
   build:
     name: Build and Release Electron App
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
     - name: Checkout code
@@ -27,9 +27,6 @@ jobs:
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: npm run build
-
-    - name: List dist directory
-      run: ls -al dist
 
     - name: Upload Release Asset to GitHub
       uses: ncipollo/release-action@v1
