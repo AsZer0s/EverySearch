@@ -11,12 +11,6 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - name: Install dependencies for Windows build
-      run: |
-        sudo dpkg --add-architecture i386
-        sudo apt-get update
-        sudo apt-get install -y wine64 wine32
-
     - name: Checkout code
       uses: actions/checkout@v4
 
@@ -29,13 +23,18 @@ jobs:
     - name: Install dependencies
       run: npm ci
 
+    - name: Install Wine for Windows builds
+      run: |
+        choco install wine
+      shell: cmd
+
     - name: Build the application
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: npm run build
 
     - name: List dist directory
-      run: ls -al dist
+      run: ls dist
 
     - name: Upload Release Asset to GitHub
       uses: ncipollo/release-action@v1
