@@ -28,8 +28,13 @@ jobs:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: npm run build
 
-    - name: List dist directory
-      run: dir dist
+    - name: Delete existing tag and release (if exists)
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        gh release delete AutoBuild --yes || echo "Release doesn't exist."
+        git tag -d AutoBuild || echo "Tag doesn't exist."
+        git push origin --delete AutoBuild || echo "Remote tag doesn't exist."
 
     - name: Upload Release Asset to GitHub
       uses: ncipollo/release-action@v1
