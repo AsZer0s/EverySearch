@@ -23,18 +23,13 @@ jobs:
     - name: Install dependencies
       run: npm ci
 
-    - name: Install Wine for Windows builds
-      run: |
-        choco install wine
-      shell: cmd
-
     - name: Build the application
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: npm run build
 
     - name: List dist directory
-      run: ls dist
+      run: dir dist
 
     - name: Upload Release Asset to GitHub
       uses: ncipollo/release-action@v1
