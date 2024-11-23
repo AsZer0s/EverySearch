@@ -30,9 +30,6 @@ jobs:
 
     - name: List dist directory
       run: ls -al dist
-  
-    - name: Output build logs
-      run: cat build.log
 
     - name: Upload Release Asset to GitHub
       uses: ncipollo/release-action@v1
